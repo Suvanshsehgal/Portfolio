@@ -1,7 +1,24 @@
-import React from 'react'   
+import React from 'react'
+import Navbar from './components/Navbar'
+import HeroSection from './components/HeroSection'
+import Projects from './components/Projects'
+import Skills from './components/Skills'
+import Experience from './components/Experience'
+import Contactus from './components/Contactus'
+import Footer from './components/Footer'
 
-export default function App() {
+function App() {
   return (
-    <div className='text-3xl font-bold underline'>App</div>
+    <>
+    <Navbar/>
+    <HeroSection/>
+    <Projects/>
+    <Skills/>
+    <Experience/>
+    <Contactus/>
+    <Footer/>
+    </>
   )
 }
+
+export default App
