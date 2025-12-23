@@ -6,6 +6,7 @@ import Skills from './components/Skills'
 import Experience from './components/Experience'
 import Contactus from './components/Contactus'
 import Footer from './components/Footer'
+import './App.css'
 
 function App() {
   return (

@@ -1,1 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Aceh:wght@300;400;500;600;700&display=swap');
 @import "tailwindcss";
+
+@font-face {
+  font-family: 'Media Sans Extended';
+  src: url('./assets/fonts/MediaSansExtended-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Media Sans Extended';
+  src: url('./assets/fonts/MediaSansExtended-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@layer base {
+  .font-media-sans {
+    font-family: 'Media Sans Extended', 'Arial Black', sans-serif;
+  }
+  
+  .font-aceh {
+    font-family: 'Aceh', sans-serif;
+  }
+}
