@@ -18,6 +18,9 @@
 }
 
 @layer base {
+  body {
+    background-color: #EEF1F4;
+  }
   .font-media-sans {
     font-family: 'Media Sans Extended', 'Arial Black', sans-serif;
   }
