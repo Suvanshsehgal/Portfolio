@@ -1,6 +1,6 @@
 function Navbar() {
   return (
-    <nav className="border-b border-gray-300 sticky top-0 z-50">
+    <nav className="bg-[#EEF1F4] border-b border-gray-300 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-8">
         <div className="flex justify-between items-center h-24">
           {/* Logo */}
@@ -33,7 +33,7 @@ function Navbar() {
             
             {/* Resume Button with hover animation */}
             <button
-              className="px-6 py-2 bg-black text-white rounded font-medium font-aceh 
+              className="text-xl px-6 py-2 bg-black text-white rounded font-medium font-aceh 
                          transition-all duration-300 ease-in-out
                          hover:px-8 hover:shadow-lg hover:shadow-gray-400/50 
                          transform hover:scale-105"
