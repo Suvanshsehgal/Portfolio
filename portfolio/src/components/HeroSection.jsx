@@ -40,7 +40,7 @@ function HeroSection() {
               Developer
             </h1>
 
-            <h2 className="text-5xl md:text-6xl lg:text-8xl leading-none mb-6 font-media-sans">
+            <h2 className="text-5xl md:text-6xl lg:text-8xl leading-none mb-4 font-media-sans lg:translate-x-10 ">
               <span
                 className="text-transparent"
                 style={{ WebkitTextStroke: '2px black' }}
@@ -49,15 +49,30 @@ function HeroSection() {
               </span>
             </h2>
 
+            <p className="text-xl text-gray-600 mb-6 text-center lg:text-left max-w-2xl font-aceh">
+              Solving real-world problems through thoughtful design and engineering.
+            </p>
+
             {/* Buttons */}
-            <div className="flex gap-4">
-              <button className="px-8 py-3 bg-black text-white rounded hover:bg-gray-800 transition">
-                About Me
+            <div className="flex gap-4 justify-center lg:justify-start">
+              <button
+                className="px-10 py-2 bg-black text-white rounded font-medium font-aceh 
+                           transition-all duration-300 ease-in-out
+                           hover:px-12 hover:shadow-lg hover:shadow-gray-400/50 
+                           transform hover:scale-105"
+              >
+                Projects
               </button>
-              <button className="px-8 py-3 border-2 border-black rounded hover:bg-black hover:text-white transition">
-                Resume
+              <button
+                className="px-10 py-2 bg-transparent text-black border-2 border-black rounded font-medium font-aceh 
+                           transition-all duration-300 ease-in-out
+                           hover:px-12 hover:shadow-lg hover:shadow-gray-400/50 
+                           transform hover:scale-105"
+              >
+                Contact
               </button>
             </div>
+
           </div>
 
           {/* Image */}
