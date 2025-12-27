@@ -41,7 +41,7 @@ const activateDes = () => {
 
 
   return (
-    <section className="relative min-h-screen flex items-center px-3 -mt-20 pt-12">
+    <section className="relative min-h-screen flex items-center px-3  pt-12">
       <div className="max-w-7xl mx-auto w-full">
 
         {/* Social Icons */}
