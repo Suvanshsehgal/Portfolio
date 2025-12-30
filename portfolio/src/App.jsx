@@ -10,7 +10,7 @@ import './App.css'
 
 function App() {
   return (
-    <>
+    <div className="min-h-screen bg-[#EEF1F4]">
     <Navbar/>
     <HeroSection/>
     <Projects/>
@@ -18,7 +18,7 @@ function App() {
     <Experience/>
     <Contactus/>
     <Footer/>
-    </>
+    </div>
   )
 }
 
