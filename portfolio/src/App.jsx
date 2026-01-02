@@ -10,7 +10,7 @@ import './App.css'
 
 function App() {
   return (
-    <div className="min-h-screen bg-[#EEF1F4]">
+    <div className="min-h-screen">
     <Navbar/>
     <HeroSection/>
     <Projects/>

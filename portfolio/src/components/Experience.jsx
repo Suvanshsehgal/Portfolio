@@ -108,7 +108,7 @@ const Experience = () => {
   return (
     <div
       ref={sectionRef}
-      className="relative min-h-screen bg-[#edf0f4] px-10 py-24"
+      className="relative min-h-screen px-10 py-24"
     >
       <h1 className="text-6xl font-black tracking-wide mb-20 text-center">
         EXPERIENCE
