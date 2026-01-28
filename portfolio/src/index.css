@@ -55,4 +55,18 @@
     background-clip: text;
     -webkit-text-fill-color: transparent;
   }
+
+  /* RetroGrid animation */
+  @keyframes grid {
+    0% {
+      transform: translateY(-50%);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+
+  .animate-grid {
+    animation: grid 15s linear infinite;
+  }
 }
