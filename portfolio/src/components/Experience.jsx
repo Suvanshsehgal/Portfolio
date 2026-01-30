@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { MotionPathPlugin } from "gsap/MotionPathPlugin";
@@ -14,11 +14,37 @@ const Experience = () => {
   const startMarkerRef = useRef(null);
   const endRef = useRef(null);
 
-  const experiences = [
-    { title: "Experience One", desc: "Lorem ipsum", side: "left" },
-    { title: "Experience Two", desc: "Lorem ipsum", side: "right" },
-    { title: "Experience Three", desc: "Lorem ipsum", side: "left" },
-  ];
+const experiences = [
+  {
+    title: "Co-Founder — ZTown",
+    body: "Co-founded a fast-commerce fashion startup delivering clothing within 60 minutes. Leading product vision, UI/UX design, and digital infrastructure while building the tech foundation for rapid local deliveries.",
+    date: "Jan 2026 - Present",
+    side: "left",
+    attachment: "https://www.ztown.club/"
+  },
+  {
+    title: "President — ACM BMU Student Chapter",
+    body: "Leading the official ACM student chapter, managing technical events, hackathons, and workshops. Overseeing creative and technical teams while building a strong developer ecosystem on campus.",
+    date: "August 2025 - Present",
+    side: "right",
+    attachment: null
+  },
+  {
+    title: "Full Stack Intern — Coding Blocks",
+    body: "Worked on real-world web applications using modern full-stack technologies. Contributed to frontend UI, backend logic, and API integration while following production-level practices.",
+    date: "June 2025 - July 2025",
+    side: "left",
+    attachment: null
+  },
+  {
+    title: "Creative & Design Team Member",
+    body: "Part of the creative team for major tech and college events, contributing to branding, merchandise design, and digital assets. Created posters, UI concepts, and visual identity for events and hackathons.",
+    date: "Aug 2022 - Dec 2022",
+    side: "right",
+    attachment: null
+  },
+]
+
 
   const catmullRomToBezier = (points) => {
     if (points.length < 2) return "";
@@ -51,59 +77,129 @@ const Experience = () => {
 
       if (!dot || !svgPath) return;
 
-      const section = sectionRef.current.getBoundingClientRect();
-      const points = [];
-
-      // START BELOW PRESENT (no overlap)
-      const start = startMarkerRef.current.getBoundingClientRect();
-      points.push({
-        x: start.left + start.width / 2 - section.left,
-        y: start.top + start.height / 2 - section.top,
-      });
-
-      // THROUGH EXPERIENCE CARDS
+      // Temporarily show all cards to get accurate positions
       cardRefs.current.forEach((card) => {
-        const marker = card?.querySelector(".marker");
-        if (!marker) return;
+        const cardContent = card?.querySelector(".card-content");
+        if (cardContent) {
+          gsap.set(cardContent, { opacity: 1, scale: 1, y: 0 });
+        }
+      });
 
-        const r = marker.getBoundingClientRect();
-        points.push({
-          x: r.left + r.width / 2 - section.left,
-          y: r.top + r.height / 2 - section.top,
+      // Calculate path after cards are visible
+      setTimeout(() => {
+        const section = sectionRef.current.getBoundingClientRect();
+        const points = [];
+
+        // START BELOW PRESENT (no overlap)
+        const start = startMarkerRef.current?.getBoundingClientRect();
+        if (start) {
+          points.push({
+            x: start.left + start.width / 2 - section.left,
+            y: start.top + start.height / 2 - section.top,
+          });
+        }
+
+        // THROUGH EXPERIENCE CARDS - get marker positions
+        cardRefs.current.forEach((card) => {
+          if (!card) return;
+          
+          const marker = card.querySelector(".marker");
+          if (!marker) return;
+
+          const r = marker.getBoundingClientRect();
+          const centerX = r.left + r.width / 2 - section.left;
+          const centerY = r.top + r.height / 2 - section.top;
+          
+          points.push({ x: centerX, y: centerY });
         });
-      });
 
-      // END AT 2023
-      const end = endRef.current.getBoundingClientRect();
-      points.push({
-        x: end.left + end.width / 2 - section.left,
-        y: end.top + end.height / 2 - section.top,
-      });
+        // END AT 2023
+        const end = endRef.current?.getBoundingClientRect();
+        if (end) {
+          points.push({
+            x: end.left + end.width / 2 - section.left,
+            y: end.top + end.height / 2 - section.top,
+          });
+        }
 
-      const pathData = catmullRomToBezier(points);
-      svgPath.setAttribute("d", pathData);
+        const pathData = catmullRomToBezier(points);
+        svgPath.setAttribute("d", pathData);
 
-      gsap.timeline({
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top center",
-          end: "+=1600",
-          scrub: 1,
-        },
-      }).to(dot, {
-        ease: "none",
-        motionPath: {
-          path: svgPath,
-          align: svgPath,
-          alignOrigin: [0.5, 0.5],
-        },
-      });
+        // Now hide cards again for animation
+        cardRefs.current.forEach((card) => {
+          const cardContent = card?.querySelector(".card-content");
+          if (cardContent) {
+            gsap.set(cardContent, { opacity: 0, scale: 0.95, y: 20 });
+          }
+        });
+
+        // Main timeline for dot movement
+        gsap.timeline({
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top center",
+            end: "bottom center",
+            scrub: 0.5,
+          },
+        }).to(dot, {
+          ease: "none",
+          motionPath: {
+            path: svgPath,
+            align: svgPath,
+            alignOrigin: [0.5, 0.5],
+          },
+        });
+
+        // Animate each card when dot reaches it
+        cardRefs.current.forEach((card, index) => {
+          if (!card) return;
+          
+          const cardContent = card.querySelector(".card-content");
+          if (!cardContent) return;
+
+          // Calculate the scroll position when dot reaches this card
+          const totalCards = cardRefs.current.length;
+          const progressPerCard = 1 / (totalCards + 1); // +1 for start and end points
+          const cardProgress = (index + 1) * progressPerCard;
+
+          ScrollTrigger.create({
+            trigger: sectionRef.current,
+            start: "top center",
+            end: "bottom center",
+            scrub: 0.5,
+            onUpdate: (self) => {
+              // Trigger animation slightly before the dot reaches the card
+              if (self.progress >= cardProgress - 0.08 && self.progress < cardProgress + 0.02) {
+                gsap.to(cardContent, {
+                  opacity: 1,
+                  scale: 1,
+                  y: 0,
+                  duration: 0.2,
+                  ease: "power4.out",
+                  overwrite: true,
+                });
+              }
+            },
+          });
+        });
+      }, 50);
     };
 
     createTimeline();
-    window.addEventListener("resize", createTimeline);
-    return () => window.removeEventListener("resize", createTimeline);
-  }, []);
+    
+    // Add a slight delay before adding resize listener to prevent immediate recalculation
+    let resizeTimeout;
+    const resizeHandler = () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(createTimeline, 150);
+    };
+    
+    window.addEventListener("resize", resizeHandler);
+    return () => {
+      window.removeEventListener("resize", resizeHandler);
+      clearTimeout(resizeTimeout);
+    };
+  }, [experiences]);
 
   return (
     <div
@@ -159,19 +255,41 @@ const Experience = () => {
               exp.side === "left" ? "justify-start" : "justify-end"
             }`}
           >
-            <div className="relative w-[560px] bg-white p-6 rounded-xl shadow-xl border border-gray-300">
-              <div className="bg-gray-300 rounded-xl p-5">
-                <h2 className="text-xl font-bold mb-1">{exp.title}</h2>
-                <p className="text-sm leading-relaxed">{exp.desc}</p>
+            <div className="card-content relative w-[600px] bg-gradient-to-br from-white to-gray-50 p-8 rounded-2xl shadow-2xl border border-gray-200 hover:shadow-3xl transition-all duration-300 hover:scale-[1.02]">
+              <div className="space-y-4">
+                <div className="flex items-start justify-between gap-4">
+                  <h2 className="text-2xl font-bold text-gray-900 leading-tight">{exp.title}</h2>
+                </div>
+                <div className="flex items-center gap-2">
+                  <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                  <p className="text-sm text-gray-600 font-semibold">{exp.date}</p>
+                </div>
+                <div className="h-px bg-gradient-to-r from-gray-300 via-gray-200 to-transparent"></div>
+                <p className="text-base leading-relaxed text-gray-700">{exp.body}</p>
+                {exp.attachment && (
+                  <a 
+                    href={exp.attachment} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 mt-4 px-4 py-2 bg-black text-white rounded-lg text-sm font-medium hover:bg-gray-800 transition-all duration-300 hover:gap-3"
+                  >
+                    View Attachment
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                  </a>
+                )}
               </div>
 
               <div
                 className={`marker absolute top-1/2 -translate-y-1/2
-                  w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center shadow
-                  ${exp.side === "left" ? "-right-10" : "-left-10"}
+                  w-10 h-10 rounded-full bg-white border-4 border-black flex items-center justify-center shadow-lg
+                  ${exp.side === "left" ? "-right-12" : "-left-12"}
                 `}
               >
-                <div className="w-4 h-4 bg-black rounded-full"></div>
+                <div className="inner-dot w-4 h-4 bg-black rounded-full"></div>
               </div>
             </div>
           </div>
