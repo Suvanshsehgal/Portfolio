@@ -11,8 +11,9 @@ const projectsData = [
     tags: ['MERN STACK', 'AI INTEGRATION', 'DOCUMENT AUTOMATION', 'FULL STACK'],
     bgImage: lexportBg,
     mockupImage: lexportBg,
-    repoLink: '#',
-    uiLink: '#'
+    repoLink: 'https://github.com/Suvanshsehgal/Lex-Port',
+    uiLink: '#',
+    projectLink: 'https://lex-port.vercel.app/'
   },
   {
     id: 2,
@@ -21,8 +22,9 @@ const projectsData = [
     tags: ['REACT', 'AI POWERED', 'LEGAL TECH', 'DATA PROCESSING'],
     bgImage: lawlensBg,
     mockupImage: lawlensBg,
-    repoLink: '#',
-    uiLink: '#'
+    repoLink: 'https://github.com/Suvanshsehgal/Law-Lens-Frontend',
+    uiLink: '#',
+    projectLink: 'https://law-lens-frontend-kappa.vercel.app'
   }
 ]
 
@@ -58,6 +60,10 @@ function Projects() {
       })
     }
   }, [])
+
+  const handleProjectClick = (projectLink) => {
+    window.open(projectLink, '_blank')
+  }
 
   const handleMouseMove = (e, index) => {
     if (cursorRefs.current[index]) {
@@ -98,11 +104,11 @@ function Projects() {
         <section
           key={project.id}
           ref={(el) => (sectionRefs.current[index] = el)}
-          className="relative w-full min-h-screen flex items-center justify-center overflow-hidden"
+          className="relative w-full min-h-screen flex items-center justify-center overflow-hidden cursor-none"
           onMouseMove={(e) => handleMouseMove(e, index)}
           onMouseEnter={() => handleMouseEnter(index)}
           onMouseLeave={() => handleMouseLeave(index)}
-          style={{ cursor: 'none' }}
+          onClick={() => handleProjectClick(project.projectLink)}
         >
           {/* Background Image with Dark Gradient Overlay */}
           <div className="absolute inset-0 z-0">
@@ -182,6 +188,7 @@ function Projects() {
                     isVisible[index] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
                   }`}
                   style={{ transitionDelay: '0.8s' }}
+                  onClick={(e) => e.stopPropagation()}
                 >
                   <a
                     href={project.repoLink}
