@@ -1,5 +1,6 @@
 import { useRef, useEffect } from 'react'
 import { gsap } from 'gsap'
+import { GridPattern } from "./ui/GridPattern"
 
 import profileImage from '../assets/profile.png'
 import githubIcon from '../assets/GitHub.svg'
@@ -41,12 +42,16 @@ function HeroSection() {
 
 
   return (
-    <section className="relative min-h-screen flex items-center px-3 pt-24 md:pt-20 lg:pt-12">
-      <div className="max-w-7xl mx-auto w-full">
+    <section className="relative min-h-screen flex items-center px-3 pt-24 md:pt-20 lg:pt-12 overflow-hidden">
+      <GridPattern
+        width={20}
+        height={20}
+        className="absolute inset-0"
+      />
+      <div className="max-w-7xl mx-auto w-full relative z-10">
 
-        {/* Social Icons */}
-        <div className="flex gap-4 justify-center items-center mb-6 lg:flex-col lg:gap-6 lg:mb-0
-         lg:absolute lg:left-17 lg:top-1/2 lg:-translate-y-1/2">
+        {/* Social Icons - Mobile/Tablet */}
+        <div className="flex gap-4 justify-center items-center mb-6 lg:hidden">
           {[
             { href: 'https://github.com', icon: githubIcon, alt: 'GitHub' },
             { href: 'https://twitter.com', icon: twitterIcon, alt: 'Twitter' },
@@ -60,7 +65,27 @@ function HeroSection() {
               rel="noopener noreferrer"
               className="hover:scale-110 transition-transform"
             >
-              <img src={icon} alt={alt} className="w-7 h-7 lg:w-8 lg:h-8" />
+              <img src={icon} alt={alt} className="w-7 h-7" />
+            </a>
+          ))}
+        </div>
+
+        {/* Social Icons - Desktop */}
+        <div className="hidden lg:flex lg:flex-col lg:gap-6 lg:absolute lg:-left-4 lg:top-1/2 lg:-translate-y-[70%]">
+          {[
+            { href: 'https://github.com', icon: githubIcon, alt: 'GitHub' },
+            { href: 'https://twitter.com', icon: twitterIcon, alt: 'Twitter' },
+            { href: 'https://instagram.com', icon: instagramIcon, alt: 'Instagram' },
+            { href: 'https://linkedin.com', icon: linkedinIcon, alt: 'LinkedIn' },
+          ].map(({ href, icon, alt }) => (
+            <a
+              key={alt}
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:scale-110 transition-transform"
+            >
+              <img src={icon} alt={alt} className="w-8 h-8" />
             </a>
           ))}
         </div>
