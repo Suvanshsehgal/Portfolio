@@ -7,8 +7,8 @@ const projectsData = [
   {
     id: 1,
     title: 'LEX - PORT',
-    subtitle: 'Professional document generation platform',
-    tags: ['MERN STACK', 'DOCUMENT GENERATION'],
+    subtitle: 'AI-powered document generation and management platform with dynamic templates, smart form inputs, and automated document structuring.',
+    tags: ['MERN STACK', 'AI INTEGRATION', 'DOCUMENT AUTOMATION', 'FULL STACK'],
     bgImage: lexportBg,
     mockupImage: lexportBg,
     repoLink: '#',
@@ -17,14 +17,15 @@ const projectsData = [
   {
     id: 2,
     title: 'LAW - LENS',
-    subtitle: 'Legal research and case analysis tool',
-    tags: ['REACT', 'AI POWERED', 'LEGAL TECH'],
+    subtitle: 'AI-assisted legal research tool that analyzes case data, simplifies legal insights, and enhances decision support using intelligent search and data processing.',
+    tags: ['REACT', 'AI POWERED', 'LEGAL TECH', 'DATA PROCESSING'],
     bgImage: lawlensBg,
     mockupImage: lawlensBg,
     repoLink: '#',
     uiLink: '#'
   }
 ]
+
 
 function Projects() {
   const [isVisible, setIsVisible] = useState({})
@@ -150,7 +151,7 @@ function Projects() {
 
                 {/* Subtitle with Delay */}
                 <p
-                  className={` font-aceh text-xl text-gray-300 font-light transition-all duration-1000 ${
+                  className={` font-aceh text-xl text-gray-300 font-light max-w-4xl transition-all duration-1000 ${
                     isVisible[index] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
                   }`}
                   style={{ transitionDelay: '0.4s' }}
@@ -198,7 +199,7 @@ function Projects() {
                                hover:px-10 hover:shadow-lg hover:shadow-white/50 
                                transform hover:scale-105 hover:bg-white hover:text-black"
                   >
-                    View UI
+                    Case Study
                   </a>
                 </div>
               </div>
