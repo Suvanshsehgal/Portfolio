@@ -2,7 +2,7 @@ import React from 'react'
 import Navbar from './components/Navbar'
 import HeroSection from './components/HeroSection'
 import Projects from './components/Projects'
-import Skills from './components/Skills'
+import Drag from './components/Drag'
 import Experience from './components/Experience'
 import Contactus from './components/Contactus'
 import Footer from './components/Footer'
@@ -14,7 +14,7 @@ function App() {
     <Navbar/>
     <HeroSection/>
     <Projects/>
-    <Skills/>
+    <Drag/>
     <Experience/>
     <Contactus/>
     <Footer/>
